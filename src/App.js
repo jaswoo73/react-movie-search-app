@@ -8,6 +8,7 @@ import animationData from "./assets/logo.json";
 import tryAgain from "./assets/TryAgain.json";
 import FilterIcon from "./assets/filter.svg";
 import InfoIcon from "./assets/info.svg";
+import NoImageIcon from "./assets/No-Image-Placeholder.png";
 
 const API_URL = "https://www.omdbapi.com?apikey=869822d9";
 
@@ -16,6 +17,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sort, setSort] = useState(false);
   const [searchHistory, setSearchHistory] = useState(new Set());
+  const [movieTitle, setMovieTitle] = useState("");
 
   const lottieRef = useRef(null);
 
@@ -23,6 +25,7 @@ const App = () => {
     const title = searchTitle || "Star Wars";
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
+    setMovieTitle(searchTitle);
     setSearchHistory(new Set([...searchHistory, title]));
     setMovies(data.Search);
   };
@@ -91,7 +94,7 @@ const App = () => {
       </div>
       <p className="resultText">
         Showing <span>{movies ? movies.length : 0}</span> results for:{" "}
-        {searchTerm}
+        {movieTitle ? movieTitle : "Star Wars"}
       </p>
       {movies?.length > 0 ? (
         <div className="container">
@@ -99,7 +102,12 @@ const App = () => {
             ? [...movies].sort((a, b) => b.Year - a.Year)
             : [...movies].sort((a, b) => a.Year - b.Year)
           ).map((movie, index) => (
-            <MovieCard key={index} movie={movie} InfoIcon={InfoIcon} />
+            <MovieCard
+              key={index}
+              movie={movie}
+              InfoIcon={InfoIcon}
+              NoImageIcon={NoImageIcon}
+            />
           ))}
         </div>
       ) : (

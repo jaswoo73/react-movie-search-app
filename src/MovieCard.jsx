@@ -1,10 +1,10 @@
-const MovieCard = ({ movie, InfoIcon }) => {
+const MovieCard = ({ movie, InfoIcon, NoImageIcon }) => {
   return (
     <div className="movie">
       <div>
         <p>{movie.Year}</p>
         <a
-          href={`https://www.imdb.com/title/tt0076759/`}
+          href={`https://www.imdb.com/title/${movie.imdbID}/`}
           target="_blank"
           rel="noreferrer"
           title="See more info at IMDB"
@@ -14,11 +14,7 @@ const MovieCard = ({ movie, InfoIcon }) => {
       </div>
       <div>
         <img
-          src={
-            movie.Poster !== "N/a"
-              ? movie.Poster
-              : "https://via.placeholder.com/400"
-          }
+          src={movie.Poster !== "N/A" ? movie.Poster : NoImageIcon}
           alt={movie.Title}
         />
       </div>
