@@ -91,7 +91,7 @@ body {
 
 .searchHistory {
   display: flex;
-  gap: 8px;
+  gap: 15px;
   flex: 1;
   padding: 10px;
   margin-left: 13vw;
